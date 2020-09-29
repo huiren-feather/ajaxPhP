@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<script type="text/javascript">
+	window.onload = function(){
+		var btn = document.querySelector("#btn");
+		btn.onclick = function(){
+			var cityName = document.querySelector("#city").value;
+			//动态创建script标签，动态制定src属性的值
+
+			var script = document.createElement("script");
+			script.src = "http://www.lisi.com/data.php?city="+cityName+"&callback=foo2";
+
+			window["foo2"] = function(data){
+				console.log(data);
+			};
+
+			var head  = document.querySelector("head");
+			head.appendChild(script);
+
+		};
+	};
+	</script>
+</head>
+<body>
+
+	<h1>天气信息查询</h1>
+	<input type="text" id="city" placeholder="请输入城市名称">
+	<input type="button" id="btn" value="查询">
+	
+</body>
+</html>

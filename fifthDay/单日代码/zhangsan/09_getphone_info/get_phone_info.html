@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取手机吉凶信息</title>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+
+        $(function(){
+            $("#btn").click(function(){
+                var phoneNumber = $("#phonenumber").val();
+                console.log(phoneNumber);
+                $.ajax({
+                    url:"http://apicloud.mob.com/appstore/lucky/mobile/query",
+                    data:{key:"216e720443bb8",mobile:phoneNumber},
+                    dataType:"jsonp",
+                    success:function(data){
+                        console.log(data);
+                    }
+                });
+            });
+        });
+        
+    </script>
+</head>
+<body>
+   <div id="container">
+        <input type="text" id="phonenumber" placeholder="请输入手机号码">
+        <input type="button" id="btn" value="查询">
+        <span id="result">结果信息</span>
+    </div>
+</body>
+</html>

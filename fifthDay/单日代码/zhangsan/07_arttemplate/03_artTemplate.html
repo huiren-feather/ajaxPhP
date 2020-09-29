@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="./template.js"></script>
+    <!-- data.data -->
+    <script id="test" type="text/html">
+        <ul>
+            {{each arr as value i}}
+                <li>{{value}}</li>
+            {{/each}}
+        </ul>
+    </script>
+
+    <script>
+        window.onload = function(){
+            var data = ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他'];
+            var temp = {};
+            temp.arr = data;
+            var html = template("test",temp);//data.xxx 
+            document.querySelector("#content").innerHTML = html;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="content">
+        <ul>
+            <li>文艺</li>
+            <li>博客</li>
+        </ul>
+    </div>
+</body>
+
+</html>
