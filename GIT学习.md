@@ -22,6 +22,8 @@ ls -la:打印当前目录下所有内容（包含隐藏文件,显示详细信息
 
 cd C:\\  :跳转到C盘
 
+：wq   :退出vim
+
 code .   :直接在VScode中把此目录新建为工作区
 
 git status :查看当前工作区哪些文件没有被添加到仓库中
@@ -132,3 +134,50 @@ git push origin master
 
 需要输入用户名和密码
 
+#### **推荐使用SHH方式提交**
+
+1.输入命令： ssh-keygen
+
+一直回车，找到id_rsa.pub，打开，复制，在GitHub中setting中，SSHkey中增加一个，粘贴。
+
+然后命令：git clone ssh地址
+
+提交到GitHub： **git push origin master**
+
+#### 问题
+
+ ! [rejected]        master -> master (non-fast-forward)
+
+##### 原因
+
+你的远程仓库的内容有改动但是你本地并没有拉去最新的代码所以会报错
+
+##### 解决方法：
+
+$ git pull origin master --allow-unrelated-histories
+
+#### 全流程
+
+git add [filename]
+
+git commit -m "[description]"
+
+git push origin master
+
+##### 注
+
+提交全部文件：git add --all
+
+
+
+#### 获取最新的Git
+
+```
+git clone git://git.kernel.org/pub/scm/git/git.git
+```
+
+#### Git使用手册
+
+```
+$ git help <verb>
+```
