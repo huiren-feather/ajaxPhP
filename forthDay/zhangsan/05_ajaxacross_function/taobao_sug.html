@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="myutils.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var btn = document.querySelector("#btn");
+			btn.onclick = function(){
+				var keywordValue = document.querySelector("#keyword").value;
+				console.log(keywordValue);
+
+
+				myAjax({
+					url:"https://suggest.taobao.com/sug",
+					data:{q:keywordValue},
+					success:function(data){
+						var liTag = "";
+						for(var i=0;i<data.result.length;i++){
+							var temp = data.result[i];
+							var tempSug = temp[0];
+							liTag += "<li>"+tempSug+"</li>";
+						}
+
+						var ulTag = document.querySelector("ul");
+						ulTag.innerHTML = liTag;
+					}
+				});
+			};
+		};
+	</script>
+
+</head>
+<body>
+
+<input type="text" id="keyword" placeholder="请输入相关的关键字">
+<input type="button" id="btn" value="查询">
+
+<ul>
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+</ul>
+	
+</body>
+</html>
