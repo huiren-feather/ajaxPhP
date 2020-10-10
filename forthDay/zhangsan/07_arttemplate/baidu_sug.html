@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="myutils.js"></script>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="template.js"></script>
+	<!-- 1、模板的type=text/html  2、给模板配一个id
+		data.s
+	-->
+	<script type="text/html" id="resultTemplate">
+		<ul>
+			{{each s as value i}}
+				<li>
+					<div>
+						<span>结果{{i+1}}:</span>
+						<span>{{value}}</span>
+					</div>
+				</li>
+			{{/each}}
+		<ul>
+	</script>
+
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var btn = document.querySelector("#btn");
+			btn.onclick = function(){
+				var keywordValue = document.querySelector("#keyword").value;
+				console.log(keywordValue);
+
+				$.ajax({
+					url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+					data:{wd:keywordValue},
+					success:function(data){
+						console.log(data);
+
+						//template方法的含义就是将数据和模板结合起来，生成html片段
+						var html = template("resultTemplate",data);
+						console.log(html);
+						var divResult = document.querySelector("#resultDiv");
+						divResult.innerHTML = html;
+
+						// var liTag = "";
+						// for(var i=0;i<data.s.length;i++){
+						// 	var temp = data.s[i];
+						// 	//liTag += "<li>"+temp+"</li>";
+						// 	liTag += "<li><div><span>结果"+i+":</span><span>"+temp+"</span></div></li>"
+						// }
+						// var ulTag = document.querySelector("ul");
+						// ulTag.innerHTML = liTag;
+					},
+					dataType:"jsonp",
+					jsonp:"cb"
+				});
+
+				// myAjax({
+				// 	url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+				// 	data:{wd:keywordValue},
+				// 	success:function(data){
+				// 		console.log(data);
+				// 	},
+				// 	jsonp:"cb",
+				// 	jsonpCallback:"haha"
+				// });
+
+				// var script = document.createElement("script");
+				// script.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+keywordValue+"&cb=haha";
+				// window["haha"] = function(data){
+
+				// 	var liTag = "";
+				// 	for(var i=0;i<data.s.length;i++){
+				// 		var temp = data.s[i];
+						
+				// 		liTag += "<li>"+temp+"</li>";
+				// 	}
+
+				// 	var ulTag = document.querySelector("ul");
+				// 	ulTag.innerHTML = liTag;
+
+				// };
+				// var head = document.querySelector("head");
+				// head.appendChild(script);
+			};
+		};
+	</script>
+
+</head>
+<body>
+
+<input type="text" id="keyword" placeholder="请输入相关的关键字">
+<input type="button" id="btn" value="查询">
+
+<div id="resultDiv">
+	<ul>
+		<li>
+			<div>
+				<span>结果1:</span>
+				<span>1</span>
+			</div>
+		</li>
+		<li>
+			<div>
+				<span>结果1:</span>
+				<span>1</span>
+			</div>
+		</li>
+		<li>
+			<div>
+				<span>结果1:</span>
+				<span>1</span>
+			</div>
+		</li>
+		<li>
+			<div>
+				<span>结果1:</span>
+				<span>1</span>
+			</div>
+		</li>
+		<li>
+			<div>
+				<span>结果1:</span>
+				<span>1</span>
+			</div>
+		</li>
+	</ul>
+	</div>
+</body>
+</html>

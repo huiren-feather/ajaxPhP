@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册界面</title>
+	<script>
+		
+		window.onload = function(){
+			var btn = document.getElementById("btn");
+			btn.onclick = function(){
+				var username = document.getElementById("username").value;
+				//使用js代码进行checkUsername.php这个文件的访问，将username传递给这个文件
+
+				//1、创建XMLHttpRequest这个对象,这个步骤中需要注意兼容处理
+				var xhr = null;
+				if(window.XMLHttpRequest) {
+					xhr = new XMLHttpRequest();
+				} else {
+					//IE6浏览器
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				//2、准备发送
+				//xhr.open("get","checkUsername.php?username=" + username,true);
+				//xhr.send(null);
+				xhr.open("post","checkUsername.php",true);
+				//3、执行发送
+				var param = "username=" + username;
+				//对于post请求来说的话，我们的参数应该放到请求体中
+				//设置xhr的请求头信息，这个步骤仅仅是针对于post请求才有的
+				xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xhr.send(param);
+
+				//4、设置回调函数
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4) {
+						if(xhr.status == 200) {
+							//得到数据
+							//xhr.responseXML
+							var result = xhr.responseText;
+							console.log(result);
+							document.getElementById("result").innerText = result;
+						}
+					}
+					
+				};
+
+			};
+		};
+
+	</script>
+</head>
+<body>
+	<h1>注册界面</h1>
+	<form action="register.php" method="get">
+		
+		用户名：<input type="text" name="username" id="username">
+		<input type="button" value="验证用户名" id="btn">
+		<span id="result"></span>
+		<br>
+		密码：<input type="password" name="password"><br>
+		<input type="submit" value="提交">
+
+	</form>
+</body>
+</html>

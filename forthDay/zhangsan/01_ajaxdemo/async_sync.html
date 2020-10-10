@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		
+
+		setTimeout(function(){
+			console.log("定时函数代码执行了");
+		},0);
+
+		var str = "";
+		for(var i=0;i<1000000;i++){
+			str += i;
+		}
+
+		console.log("正常代码执行了");
+
+		var str = "";
+		for(var i=0;i<1000000;i++){
+			str += i;
+		}
+
+		// window.onload = function(){};
+		// btn.onclick
+		// input.onblur
+		// xhr.onreadystatechange = function(){}
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

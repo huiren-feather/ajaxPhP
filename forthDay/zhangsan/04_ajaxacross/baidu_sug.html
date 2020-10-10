@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var btn = document.querySelector("#btn");
+			btn.onclick = function(){
+				var keywordValue = document.querySelector("#keyword").value;
+				console.log(keywordValue);
+
+				var script = document.createElement("script");
+				script.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+keywordValue+"&cb=haha";
+				window["haha"] = function(data){
+
+					var liTag = "";
+					for(var i=0;i<data.s.length;i++){
+						var temp = data.s[i];
+						
+						liTag += "<li>"+temp+"</li>";
+					}
+
+					var ulTag = document.querySelector("ul");
+					ulTag.innerHTML = liTag;
+
+				};
+				var head = document.querySelector("head");
+				head.appendChild(script);
+			};
+		};
+	</script>
+
+</head>
+<body>
+
+<input type="text" id="keyword" placeholder="请输入相关的关键字">
+<input type="button" id="btn" value="查询">
+
+<ul>
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+</ul>
+	
+</body>
+</html>

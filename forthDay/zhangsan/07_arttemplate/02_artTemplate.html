@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="./template.js"></script>
+    <script id="test" type="text/html">
+        {{if isAdmin}}
+            <h1>{{title}}</h1>
+            <h2>一共有{{count}}条数据</h2>
+            <ul>
+                {{each list as value i}}
+                    <li>索引 {{i + 1}} ：{{value}}</li>
+                {{/each}}
+            </ul>
+        {{/if}}
+
+        {{if !isAdmin}}
+            <h1>没有任何数据</h1>
+        {{/if}}
+
+    </script>
+
+    <script>
+        window.onload = function(){
+            var data = {
+                title: '条件判断基本例子',
+                isAdmin: true,
+                list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+            };
+            data.count = data.list.length;
+            var html = template("test",data);
+            document.querySelector("#content").innerHTML = html;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="content">
+        
+    </div>
+</body>
+
+</html>
