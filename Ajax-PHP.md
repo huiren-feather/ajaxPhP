@@ -141,11 +141,25 @@ default_charset = "UTF-8"
 
 ##### 网站分类：
 
-静态网站：没有数据库支持，全部是HTML代码
+静态网站：没有数据库支持，全部是HTML代码，网站开发和维护的成本较大
 
 动态网站：asp,jsp,php,aspx等格式，根据内容可请求数据库支持
 
 <?php 代码?>:所有PHP代码写在这个位置
+
+提示：请设置PHP的可执行文件路径
+
+解： "php.validate.executablePath": "C:/software/wamp3.1.7/bin/php/php7.3.1/php.exe"
+
+##### PHP语法基本结构
+
+1.所有的PHP代码必须写在<?php   代码   ?>中
+
+2.PHP代码可以和HTML结合执行
+
+3.PHP文件的扩展名是“.php”
+
+4.PHP代码必须在服务器上执行
 
 ##### 变量声明和使用：$
 
@@ -160,6 +174,10 @@ default_charset = "UTF-8"
 2.print_r  输出复杂类型
 
 3.var_dump 输出复杂类型
+
+##### 字符串拼接
+
+用   .      可用于多个字符串的拼接
 
 ##### 数组
 
@@ -229,7 +247,7 @@ PHP中取值：
 
 判断数组中是否存在下标索引：
 
-array_key_exists($code, $data)
+array_key_exists($code, $data)    //返回bool值
 
 
 
@@ -333,6 +351,10 @@ result = JSON.parse(result);
 2.验证邮箱唯一性
 
 3.验证手机号唯一性
+
+##### 同步异步
+
+单线程加事件队列实现异步
 
 ##### 接口文档
 
