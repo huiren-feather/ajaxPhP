@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="myUtils.js"></script>
+    <script src="jquery.js"></script>
+    <script src="template.js"></script>
+    <!-- 1、模板的type=text/html 2、给模板配一个id-->
+    <script type="text/html" id="resultTemplate">
+        <ul>
+            {{each s as value i}}
+                <li>
+                    <div>
+                        <span>结果{{i}}：</span>
+                        <span>{{value}}</span>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </script>
+    <script>
+        window.onload=function(){
+            var btn=document.querySelector("#btn");
+            btn.onclick=function(){
+                var keywordValue=document.querySelector("#keyword").value;
+                console.log(keywordValue);
+
+                // myAjax({
+                //     url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                //     data:{wd:keywordValue},
+                //     success:function(data){
+                //         console.log(data);
+                //         var liTag="";
+                //         for(var i=0;i<data.s.length;i++){
+                //             var temp=data.s[i];
+                //             // var tempSug=temp[0];
+                //             liTag+="<li>"+temp+"</li>";
+                //         }
+                //         var ulTag=document.querySelector("ul");
+                //         ulTag.innerHTML=liTag;
+                //     },
+                //     jsonp:"cb",
+                //     jsonpCallback:"xxx"
+                // });
+
+                $.ajax({
+                    url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                    data:{wd:keywordValue},
+                    success:function(data){
+                        console.log(data);
+                        // template方法的含义就是将数据和模板结合起来
+                        var html=template("resultTemplate",data);
+                        console.log(html);
+
+                        var divResult=document.querySelector("#resultDiv");
+                        divResult.innerHTML=html;
+                        // var liTag="";
+                        // for(var i=0;i<data.s.length;i++){
+                        //     var temp=data.s[i];
+                        //     //  var tempSug=temp[0];
+                        //     liTag+="<li>"+temp+"</li>";
+                        // }
+                        // var ulTag=document.querySelector("ul");
+                        // ulTag.innerHTML=liTag;
+                    },
+                    jsonp:"cb",
+                    dataType:"jsonp"   //表示使用跨域模式
+                });
+
+                // var script=document.createElement("script");
+                // script.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+keywordValue+"&cb=haha";
+                // window["haha"]=function(data){
+                //     console.log(data);
+
+                //     var liTag="";
+                //     for(var i=0;i<data.s.length;i++){
+                //         var temp=data.s[i];
+                //         // var tempSug=temp[0];
+                //         liTag+="<li>"+temp+"</li>";
+                //     }
+                //     var ulTag=document.querySelector("ul");
+                //     ulTag.innerHTML=liTag;
+                // };
+                // var head =document.querySelector("head");
+                // head.appendChild(script);
+            };
+        };
+    </script>
+</head>
+<body>
+    <input type="text" id="keyword" placeholder="请输入关键字">
+    <input type="button" id="btn" value="查询">
+    <div id="resultDiv"></div>
+    
+</body>
+</html>

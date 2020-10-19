@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册界面</title>
+    <script src="myUtils.js"></script>
+    <script>
+
+        // function myAjax(type,url,params,dateType,callback,async) {
+        //     var xhr=null;
+        //         if (window.XMLHttpRequest) {
+        //             xhr=new XMLHttpRequest();
+        //         } else { 
+        //             // IE6
+        //             xhr=new ActiveXObject("Microsoft.XMLHTTP");
+        //         } 
+        //         if (type=="get") {
+        //             if (params&&params!="") {
+        //                 url+="?"+params; 
+        //             } 
+        //         }
+        //         xhr.open(type,url,async);
+                
+        //         if (type=="get") {
+        //             xhr.send(null);
+        //         } else {
+        //            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //            xhr.send(params); 
+        //         }
+
+        //         if (async) {
+        //             xhr.onreadystatechange=function(){
+        //             if (xhr.readyState==4) {
+        //                 if (xhr.status==200) {
+        //                     // 得到数据
+        //                     var result=null;
+        //                     if (dateType=="json") {
+        //                         result= xhr.responseText;
+        //                         result=JSON.parse(result);
+        //                     } else if (dateType=="xml") {
+        //                         result= xhr.responseXML;
+        //                     }else{
+        //                         result= xhr.responseText;
+        //                     }
+        //                     if (callback) {
+        //                         callback(result);
+        //                     }
+                           
+
+        //                 }
+        //             }
+
+
+        //         };
+        //         } else {
+        //             if (xhr.readyState==4) {
+        //                 if (xhr.status==200) {
+        //                     // 得到数据
+        //                     var result=null;
+        //                     if (dateType=="json") {
+        //                         result= xhr.responseText;
+        //                         result=JSON.parse(result);
+        //                     } else if (dateType=="xml") {
+        //                         result= xhr.responseXML;
+        //                     }else{
+        //                         result= xhr.responseText;
+        //                     }
+        //                     if (callback) {
+        //                         callback(result);
+        //                     }
+                           
+
+        //                 }
+        //             }
+        //         }
+                
+
+                
+        // }
+
+        window.onload=function(){
+            var username=document.querySelector("#username");
+            var email=document.querySelector("#email");
+            var phone=document.querySelector("#phone");
+
+            username.onblur=function(){
+                var usernameValue=username.value;
+                var type="get";
+                var url="server/checkUsername.php";
+                var params="uname="+usernameValue;
+                var dateType="text";
+
+
+                // 将usernameValue提交给服务器，由服务器进行校验唯一性
+                
+                myAjax2({
+                    url:url,
+                    data:{uname:usernameValue},
+                    dateType:"text",
+                    success:function(result){ 
+                        document.getElementById("username_result").innerText=result;}
+                });
+                // myAjax(type,url,params,dateType,function(result) {
+                //     document.getElementById("username_result").innerText=result;
+                // },false);
+
+
+            }
+            email.onblur=function(){
+                var emailValue=email.value;
+                // 将usernameValue提交给服务器，由服务器进行校验唯一性
+                var type="post";
+                var url="server/checkEmail.php";
+                var params="e="+emailValue;
+                var dateType="text";
+
+
+                
+                myAjax(type,url,params,dateType,function(result) {
+                    document.getElementById("email_result").innerText=result;
+                },true);
+              
+
+            }
+            phone.onblur=function(){
+                var phoneValue=phone.value;
+                // 将usernameValue提交给服务器，由服务器进行校验唯一性
+                var type="post";
+                var url="server/checkPhone.php";
+                var params="phonenumber="+phoneValue;
+                var dateType="json";
+                
+                myAjax(type,url,params,dateType,function(result) {
+                    var phone_result=document.getElementById("phone_result");
+                            console.log(result);
+                            if (result.status==0) {
+                                // 手机可用
+                                phone_result.innerText=result.message.tips+","+result.message.phonefrom;
+                            } else {
+                                // 手机不可用
+                                phone_result.innerText=result.message;
+                            }
+                },true);
+ 
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <h1>注册界面</h1>
+    <form action="">
+        用户名：<input type="text" id="username"><span id="username_result"></span><br>
+        邮箱：<input type="text" id="email"><span id="email_result"></span><br>
+        手机号码：<input type="text" id="phone"><span id="phone_result"></span><br>
+    </form>
+</body>
+</html>

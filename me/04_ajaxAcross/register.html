@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册界面</title>
+    <script>
+        window.onload=function(){
+            var username=document.querySelector("#username");
+            var email=document.querySelector("#email");
+            var phone=document.querySelector("#phone");
+
+            username.onblur=function(){
+                var usernameValue=username.value;
+                // 将usernameValue提交给服务器，由服务器进行校验唯一性
+                var xhr=null;
+                if (window.XMLHttpRequest) {
+                    xhr=new XMLHttpRequest();
+                } else { 
+                    // IE6
+                    xhr=new ActiveXObject("Microsoft.XMLHTTP");
+                } 
+                xhr.open("get","http://www.feather.com/server/checkUsername.php?uname="+usernameValue);
+                xhr.send(null);
+                xhr.onreadystatechange=function(){
+                    if (xhr.readyState==4) {
+                        if (xhr.status==200) {
+                            // 得到数据
+                            var result= xhr.responseText;
+                            console.log(result);
+                            document.getElementById("username_result").innerText=result;
+
+                        }
+                    }
+
+
+                };
+
+            }
+            email.onblur=function(){
+                var emailValue=email.value;
+                // 将usernameValue提交给服务器，由服务器进行校验唯一性
+                var xhr=null;
+                if (window.XMLHttpRequest) {
+                    xhr=new XMLHttpRequest();
+                } else { 
+                    // IE6
+                    xhr=new ActiveXObject("Microsoft.XMLHTTP");
+                } 
+                xhr.open("post","server/checkEmail.php");
+                var param="e="+emailValue
+                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhr.send(param);
+   
+                xhr.onreadystatechange=function(){
+                    if (xhr.readyState==4) {
+                        if (xhr.status==200) {
+                            // 得到数据
+                            var result= xhr.responseText;
+                            console.log(result);
+                            document.getElementById("email_result").innerText=result;
+
+                        }
+                    }
+
+
+                };
+
+            }
+            phone.onblur=function(){
+                var phoneValue=phone.value;
+                // 将usernameValue提交给服务器，由服务器进行校验唯一性
+                var xhr=null;
+                if (window.XMLHttpRequest) {
+                    xhr=new XMLHttpRequest();
+                } else { 
+                    // IE6
+                    xhr=new ActiveXObject("Microsoft.XMLHTTP");
+                } 
+                xhr.open("post","server/checkPhone.php");
+                var param="phonenumber="+phoneValue
+                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhr.send(param);
+   
+                xhr.onreadystatechange=function(){
+                    if (xhr.readyState==4) {
+                        if (xhr.status==200) {
+                            // 得到数据
+                            var result= xhr.responseText;
+                            // 将字符串转变为对象
+                            result=JSON.parse(result)
+                            var phone_result=document.getElementById("phone_result");
+                            console.log(result);
+                            if (result.status==0) {
+                                // 手机可用
+                                phone_result.innerText=result.message.tips+","+result.message.phonefrom;
+                            } else {
+                                // 手机不可用
+                                phone_result.innerText=result.message;
+                            }
+
+
+                        }
+                    }
+
+
+                };
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <h1>注册界面</h1>
+    <form action="">
+        用户名：<input type="text" id="username"><span id="username_result"></span><br>
+        邮箱：<input type="text" id="email"><span id="email_result"></span><br>
+        手机号码：<input type="text" id="phone"><span id="phone_result"></span><br>
+    </form>
+</body>
+</html>

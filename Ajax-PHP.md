@@ -400,6 +400,16 @@ result = JSON.parse(result);
 
 4.如何调用方便，参数把它作为对象，所有参数放在对象中，包括方法
 
+#### 封装问题
+
+1、参数顺序不可改变
+
+2、参数没有默认值，每次都得传递
+
+##### 解决方法
+
+将封装的参数变为一个对象即可
+
 #### jQuery中使用ajax
 
 ##### 常用方法：
@@ -431,6 +441,16 @@ Ajax是为了访问自己服务器的数据，跨域是为了访问别人服务�
 2.引入PHP文件
 
 3.动态创建script标签
+
+​		// 动态创建script标签，动态制定src属性的值
+
+​        var script=document.createElement("script");
+
+​        script.src="http://www.feather.com/data.php?city="+cityName;
+
+​        var head=document.querySelector("head");
+
+​        head.appendChild(script);
 
 4.动态指定回调函数名称
 
@@ -464,6 +484,16 @@ dataType:"jsonp"
 #### 模板引擎的使用
 
 作用：渲染前端界面，方便的生成标签
+
+步骤：
+
+​	1、引入js文件
+
+​	2、定义模板
+
+​	3、将数据和模板结合起来生成HTML片段
+
+​	4、将HTML片段渲染到界面中
 
    	//template方法的含义就是将数据和模板结合起来，生成html片段
 						var html = template("resultTemplate",data);
